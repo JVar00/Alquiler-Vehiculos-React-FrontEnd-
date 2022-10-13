@@ -2,8 +2,8 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 
 //componentes
+import ManageCar from "./components/car/manageCar";
 import ManageCars from "./components/car/manageCars";
-//import ManageTypes from "./components/car/manageTypes";
 import Catalogue from "./components/mainUI/catalogue";
 import Main from "./components/mainUI/main";
 import Portal from "./components/mainUI/portal";
@@ -25,10 +25,9 @@ function App() {
               <Route path="alquiler/editar/:id" element={<ManageRent />} />
               <Route path="catalogo" element={<Catalogue />}></Route>
               <Route path="catalogo/gestionarAutos" element={<ManageCars />} />
-              {/* <Route path="catalogo/gestionarAuto/:id" element={<ManageCars />} /> */}
-              <Route path="perfil" element={<Portal />}>
-                <Route path="perfil/editar/:id" element={<ManageUser />} />
-              </Route>
+              {/* <Route path="catalogo/gestionarAuto/:id" element={<ManageCar />} /> */}
+              <Route path="perfil" element={<Portal />}></Route>
+              <Route path="perfil/:id" element={<ManageUser />} />
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
           </Routes>

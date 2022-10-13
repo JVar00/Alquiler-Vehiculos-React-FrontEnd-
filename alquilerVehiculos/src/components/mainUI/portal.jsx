@@ -1,20 +1,22 @@
 import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ClientContext } from "../../providers/clientProvider";
 import AllClients from "../allClients";
 import AddClient from "../user/addClient";
 import ModifyClient from "../user/modifyClient";
 
 const Portal = () => {
-  const { client, getOne } = useContext(ClientContext);
+  const navigate = useNavigate();
+  const { getOne } = useContext(ClientContext);
   const [logged, setLogged] = useState(false);
   const [id, setID] = useState("");
   const [err, setErr] = useState(false);
 
   const search = async () => {
     setLogged(false);
+
     try {
       await getOne(id);
       setLogged(true);
@@ -49,9 +51,7 @@ const Portal = () => {
 
       <Container>
         {logged ? (
-          <section className="mt-5">
-            <Outlet></Outlet>
-          </section>
+          navigate("/perfil:id")
         ) : (
           <div className="mt-5">
             <h5>No tienes un usuario aun?</h5>

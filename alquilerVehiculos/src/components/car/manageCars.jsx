@@ -6,3 +6,4 @@ const ManageCars = () => {
   );
 };
 export default ManageCars;
+//tabla con el boton de editar en lugar de buscador

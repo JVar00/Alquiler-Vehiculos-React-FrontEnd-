@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ClientContext } from "../../providers/clientProvider";
 
 const ManageUser = () => {
@@ -10,7 +10,26 @@ const ManageUser = () => {
     console.log("editando");
   };
 
-  return (
+  //agregar use effect que lo busque
+  const search = async () => {
+    try {
+      await getOne(uID);
+      setErr(false);
+    } catch {
+      setErr(true);
+    }
+  };
+
+  useEffect(() => {
+    search();
+  }, []);
+
+  //if err true haga
+  return err ? (
+    <p className={err ? "mt-3 text-danger" : "d-none"}>
+      No se encontro el usuario ingresado
+    </p>
+  ) : (
     <>
       <h5>Bienvenido de vuelta {client.name} </h5>
       <Form onSubmit={update}>

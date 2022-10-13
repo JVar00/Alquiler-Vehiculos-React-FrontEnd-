@@ -13,6 +13,7 @@ const AllClients = () => {
           <Card.Title>Identificacion</Card.Title>
           <Card.Text>Nombre completo.</Card.Text>
           <Button variant="danger">Eliminar</Button>
+          <Button variant="primary">Editar</Button>
         </Card.Body>
       </Card>
     </div>
