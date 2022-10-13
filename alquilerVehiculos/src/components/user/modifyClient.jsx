@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { ClientContext } from "../../providers/clientProvider";
 
 const ManageUser = () => {
-  const { updateData } = useContext(ClientContext);
+  const { uID } = useParams();
+  const { updateData, client } = useContext(ClientContext);
 
   const update = (e) => {
     e.preventDefault();
@@ -11,6 +12,7 @@ const ManageUser = () => {
 
   return (
     <>
+      <h5>Bienvenido de vuelta {client.name} </h5>
       <Form onSubmit={update}>
         <Form.Group className="mb-3" controlId="myForm">
           <Form.Label>Identificacion</Form.Label>

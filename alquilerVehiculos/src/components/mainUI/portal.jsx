@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { Outlet } from "react-router-dom";
 import { ClientContext } from "../../providers/clientProvider";
 import AllClients from "../allClients";
 import AddClient from "../user/addClient";
@@ -48,10 +49,9 @@ const Portal = () => {
 
       <Container>
         {logged ? (
-          <>
-            <h5>Bienvenido de vuelta {client.name} </h5>
-            <ModifyClient />
-          </>
+          <section className="mt-5">
+            <Outlet></Outlet>
+          </section>
         ) : (
           <div className="mt-5">
             <h5>No tienes un usuario aun?</h5>
