@@ -1,17 +1,18 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { ClientContext } from "../../providers/clientProvider";
+import { TypeContext } from "../../providers/typeProvider";
 
-const AddClient = () => {
-  const { storeData } = useContext(ClientContext);
+const AddType = () => {
+  const { storeData } = useContext(TypeContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
-  const [id, setID] = useState("");
-  const [nombre, setNombre] = useState("");
+
+  //
+  const [descripcion, setDescripcion] = useState("");
 
   const validate = () => {
-    if (id === "" || nombre === "") {
+    if (descripcion === "") {
       return false;
     }
     return true;
@@ -24,7 +25,7 @@ const AddClient = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ id, nombre });
+        await storeData({ descripcion });
         setNice(true);
       } catch {
         setErr(true);
@@ -38,35 +39,26 @@ const AddClient = () => {
     <>
       <Form onSubmit={create}>
         <Form.Group className="mb-3" controlId="myForm">
-          <Form.Label>Identificacion</Form.Label>
+          <Form.Label>Descripcion</Form.Label>
           <Form.Control
-            onChange={(e) => setID(e.target.value)}
-            value={id}
+            onChange={(e) => setPlaca(e.target.descripcion)}
+            value={descripcion}
             type="text"
-            placeholder="Ingrese su identificacion"
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            onChange={(e) => setNombre(e.target.value)}
-            value={nombre}
-            type="text"
-            placeholder="Ingrese Nombre completo"
+            placeholder="Ingrese una descripcion"
           />
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Ingresar
+          Agregar tipo
         </Button>
       </Form>
+
       <p className={nice ? "text-primary mt-3" : "d-none"}>
-        El usuario se ingreso con exito
+        El tipo se ingreso con exito
       </p>
 
       <p className={err ? "text-danger mt-3" : "d-none"}>
-        La identificacion debe ser unica
+        Esto no debia pasar, panic
       </p>
 
       <p className={input ? "text-danger mt-3" : "d-none"}>
@@ -75,4 +67,4 @@ const AddClient = () => {
     </>
   );
 };
-export default AddClient;
+export default AddType;

@@ -1,22 +1,60 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ClientContext } from "../../providers/clientProvider";
 
 const ManageUser = () => {
+  const navigate = useNavigate();
+
   const { uID } = useParams();
   const { updateData, client } = useContext(ClientContext);
 
-  const update = (e) => {
+  const [notFound, setNotFound] = useState(true);
+  const [nice, setNice] = useState(false);
+  const [errDB, setErrDB] = useState(false);
+  const [input, setInput] = useState(false);
+
+  //
+  const [id, setID] = useState("");
+  const [nombre, setNombre] = useState("");
+
+  const validate = () => {
+    if (id === "" || nombre === "") {
+      return false;
+    }
+    return true;
+  };
+
+  const cargarDatos = () => {
+    setID(client.identificacion);
+    setNombre(client.nombre);
+  };
+
+  const update = async (e) => {
     e.preventDefault();
-    console.log("editando");
+
+    setNice(false);
+    setErrDB(false);
+    setInput(false);
+
+    if (validate()) {
+      try {
+        await updateData({ uID, id, nombre });
+        setNice(true);
+      } catch {
+        setErrDB(true);
+      }
+    } else {
+      setInput(true);
+    }
   };
 
   //agregar use effect que lo busque
   const search = async () => {
     try {
       await getOne(uID);
-      setErr(false);
+      setNotFound(false);
     } catch {
-      setErr(true);
+      setNotFound(true);
     }
   };
 
@@ -25,13 +63,16 @@ const ManageUser = () => {
   }, []);
 
   //if err true haga
-  return err ? (
-    <p className={err ? "mt-3 text-danger" : "d-none"}>
-      No se encontro el usuario ingresado
-    </p>
+  return notFound ? (
+    <p className="mt-3 text-danger">No se encontro el usuario ingresado</p>
   ) : (
     <>
       <h5>Bienvenido de vuelta {client.name} </h5>
+
+      <Button variant="secundary" onClick={cargarDatos}>
+        Cargar Datos
+      </Button>
+
       <Form onSubmit={update}>
         <Form.Group className="mb-3" controlId="myForm">
           <Form.Label>Identificacion</Form.Label>
@@ -47,6 +88,22 @@ const ManageUser = () => {
           Ingresar
         </Button>
       </Form>
+
+      <p className={nice ? "text-primary mt-3" : "d-none"}>
+        El usuario se actualizo con exito
+      </p>
+
+      <p className={err ? "text-danger mt-3" : "d-none"}>
+        La identificacion debe ser unica
+      </p>
+
+      <p className={input ? "text-danger mt-3" : "d-none"}>
+        Por favor llene todos los campos requeridos
+      </p>
+
+      <Button variant="danger" onClick={() => navigate("/perfil")}>
+        Regresar
+      </Button>
     </>
   );
 };

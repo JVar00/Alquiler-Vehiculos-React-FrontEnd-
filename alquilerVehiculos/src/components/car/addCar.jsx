@@ -1,17 +1,19 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { ClientContext } from "../../providers/clientProvider";
+import { CarContext } from "../../providers/carProvider";
 
-const AddClient = () => {
-  const { storeData } = useContext(ClientContext);
+const AddCar = () => {
+  const { storeData } = useContext(CarContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
-  const [id, setID] = useState("");
-  const [nombre, setNombre] = useState("");
+
+  //
+  const [placa, setPlaca] = useState("");
+  const [tipo, setTipo] = useState("");
 
   const validate = () => {
-    if (id === "" || nombre === "") {
+    if (placa === "" || tipo === "") {
       return false;
     }
     return true;
@@ -24,7 +26,7 @@ const AddClient = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ id, nombre });
+        await storeData({ placa, nombre });
         setNice(true);
       } catch {
         setErr(true);
@@ -38,35 +40,41 @@ const AddClient = () => {
     <>
       <Form onSubmit={create}>
         <Form.Group className="mb-3" controlId="myForm">
-          <Form.Label>Identificacion</Form.Label>
+          <Form.Label>Placa</Form.Label>
           <Form.Control
-            onChange={(e) => setID(e.target.value)}
-            value={id}
+            onChange={(e) => setPlaca(e.target.value)}
+            value={placa}
             type="text"
-            placeholder="Ingrese su identificacion"
+            placeholder="Ingrese la placa del auto"
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            onChange={(e) => setNombre(e.target.value)}
-            value={nombre}
-            type="text"
-            placeholder="Ingrese Nombre completo"
-          />
+        <Form.Group className="mb-3" controlId="Tipo-Auto">
+          <Form.Label>Tipo de auto</Form.Label>
+          <Form.Select
+            value={tipo}
+            onChange={(e) => setTipo(e.target.value)}
+            aria-label="Tipo-Auto"
+            id="Tipo-Auto"
+          >
+            <option value="">Seleccione un tipo de auto</option>
+            {/* mapeo de los datos */}
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </Form.Select>
         </Form.Group>
 
         <Button variant="primary" type="submit">
           Ingresar
         </Button>
       </Form>
+
       <p className={nice ? "text-primary mt-3" : "d-none"}>
-        El usuario se ingreso con exito
+        El auto se ingreso con exito
       </p>
 
       <p className={err ? "text-danger mt-3" : "d-none"}>
-        La identificacion debe ser unica
+        La placa debe ser unica
       </p>
 
       <p className={input ? "text-danger mt-3" : "d-none"}>
@@ -75,4 +83,4 @@ const AddClient = () => {
     </>
   );
 };
-export default AddClient;
+export default AddCar;
