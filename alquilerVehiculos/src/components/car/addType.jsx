@@ -41,7 +41,7 @@ const AddType = () => {
         <Form.Group className="mb-3" controlId="myForm">
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
-            onChange={(e) => setPlaca(e.target.descripcion)}
+            onChange={(e) => setDescripcion(e.target.descripcion)}
             value={descripcion}
             type="text"
             placeholder="Ingrese una descripcion"
