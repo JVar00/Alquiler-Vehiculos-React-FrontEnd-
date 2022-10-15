@@ -5,7 +5,7 @@ export const ClientContext = createContext();
 
 export const ClientProvider = ({ children }) => {
   const [clients, setClients] = useState([]);
-  const [clientID, setClientID] = useState(null);
+  const [client, setClient] = useState(null);
 
   const getAll = async () => {
     const response = await ClientServiceData.getAll();
@@ -14,7 +14,7 @@ export const ClientProvider = ({ children }) => {
 
   const getOne = async (id) => {
     const response = await ClientServiceData.get(id);
-    setClientID(response.data);
+    setClient(response.data);
     return response;
   };
 
@@ -35,7 +35,7 @@ export const ClientProvider = ({ children }) => {
     <ClientContext.Provider
       value={{
         clients,
-        clientID,
+        client,
         storeData,
         updateData,
         deleteData,

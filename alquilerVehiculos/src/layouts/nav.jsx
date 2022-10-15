@@ -19,7 +19,7 @@ const NavBarMain = () => {
             <Nav className="me-auto px-3 justify-content-end w-100">
               <NavButton redirectTo="/alquiler" inputName="Alquila Hoy!" />
               <NavButton redirectTo="/catalogo" inputName="Catalogo" />
-              <NavButton redirectTo="/perfil" inputName="Mis alquileres" />
+              <NavButton redirectTo="/perfil" inputName="Usuarios" />
             </Nav>
           </Navbar.Collapse>
         </Container>
