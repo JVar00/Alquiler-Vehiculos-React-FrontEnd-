@@ -5,7 +5,7 @@ export const TypeContext = createContext();
 
 export const TypeProvider = ({ children }) => {
   const [types, setTypes] = useState([]);
-  const [typeID, setTypeID] = useState(null);
+  const [type, setType] = useState(null);
 
   const getAll = async () => {
     const response = await TypeServiceData.getAll();
@@ -14,28 +14,29 @@ export const TypeProvider = ({ children }) => {
 
   const getOne = async (id) => {
     const response = await TypeServiceData.get(id);
-    setTypeID(response.data);
+    setType(response.data);
     return response;
   };
 
   const deleteData = async (id) => {
-    await TypeServiceData.remove(id);
+    const response = await TypeServiceData.remove(id);
     getAll();
+    return response;
   };
 
   const updateData = async (data) => {
-    await TypeServiceData.update(data);
+    return await TypeServiceData.update(data);
   };
 
   const storeData = async (data) => {
-    await TypeServiceData.create(data);
+    return await TypeServiceData.create(data);
   };
 
   return (
     <TypeContext.Provider
       value={{
         types,
-        typeID,
+        type,
         storeData,
         updateData,
         deleteData,

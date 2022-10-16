@@ -5,7 +5,7 @@ export const CarContext = createContext();
 
 export const CarProvider = ({ children }) => {
   const [cars, setCars] = useState([]);
-  const [carID, setCarID] = useState(null);
+  const [car, setCar] = useState(null);
 
   const getAll = async () => {
     const response = await CarServiceData.getAll();
@@ -14,28 +14,29 @@ export const CarProvider = ({ children }) => {
 
   const getOne = async (id) => {
     const response = await CarServiceData.get(id);
-    setCarID(response.data);
+    setCar(response.data);
     return response;
   };
 
   const deleteData = async (id) => {
-    await CarServiceData.remove(id);
+    const response = await CarServiceData.remove(id);
     getAllPersonas();
+    return response;
   };
 
   const updateData = async (data) => {
-    await CarServiceData.update(data);
+    return await CarServiceData.update(data);
   };
 
   const storeData = async (data) => {
-    await CarServiceData.create(data);
+    return await CarServiceData.create(data);
   };
 
   return (
     <CarContext.Provider
       value={{
         cars,
-        carID,
+        car,
         storeData,
         updateData,
         deleteData,

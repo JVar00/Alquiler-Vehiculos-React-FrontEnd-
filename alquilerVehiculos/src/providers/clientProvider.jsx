@@ -19,16 +19,17 @@ export const ClientProvider = ({ children }) => {
   };
 
   const deleteData = async (id) => {
-    await ClientServiceData.remove(id);
+    const response = await ClientServiceData.remove(id);
     getAllPersonas();
+    return response;
   };
 
   const updateData = async (data) => {
-    await ClientServiceData.update(data);
+    return await ClientServiceData.update(data);
   };
 
   const storeData = async (data) => {
-    await ClientServiceData.create(data);
+    return await ClientServiceData.create(data);
   };
 
   return (
