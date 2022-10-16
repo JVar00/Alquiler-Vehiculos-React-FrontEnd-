@@ -5,7 +5,7 @@ export const RentContext = createContext();
 
 export const RentProvider = ({ children }) => {
   const [rents, setRents] = useState([]);
-  const [rentID, setRentID] = useState(null);
+  const [rent, setRent] = useState(null);
 
   //rentas por usuario, modificar
   const getAll = async (id) => {
@@ -15,24 +15,29 @@ export const RentProvider = ({ children }) => {
 
   const getOne = async (id) => {
     const response = await RentServiceData.get(id);
-    setRentID(response.data);
+    setRent(response.data);
     return response;
   };
 
   const deleteData = async (id) => {
-    await RentServiceData.remove(id);
+    const response = await RentServiceData.remove(id);
     getAllPersonas();
+    return response;
   };
 
   const storeData = async (data) => {
-    await RentServiceData.create(data);
+    return await RentServiceData.create(data);
+  };
+
+  const updateData = async (data) => {
+    return await RentServiceData.update(data);
   };
 
   return (
     <RentContext.Provider
       value={{
         rents,
-        rentID,
+        rent,
         storeData,
         updateData,
         deleteData,

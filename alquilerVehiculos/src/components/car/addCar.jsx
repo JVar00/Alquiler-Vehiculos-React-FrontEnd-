@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { CarContext } from "../../providers/carProvider";
+import { TypeContext } from "../../providers/typeProvider";
 
 const AddCar = () => {
   const { storeData } = useContext(CarContext);
+  const { types } = useContext(TypeContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
@@ -51,17 +53,23 @@ const AddCar = () => {
 
         <Form.Group className="mb-3" controlId="Tipo-Auto">
           <Form.Label>Tipo de auto</Form.Label>
-          <Form.Select
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
-            aria-label="Tipo-Auto"
-            id="Tipo-Auto"
-          >
-            <option value="">Seleccione un tipo de auto</option>
-            {/* mapeo de los datos */}
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </Form.Select>
+          {types[0] ? (
+            <Form.Select
+              value={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+              aria-label="Tipo-Auto"
+              id="Tipo-Auto"
+            >
+              <option value="">Seleccione un tipo de auto</option>
+              {/* mapeo de los datos */}
+
+              {types.map((type) => (
+                <option value={type.descripcion}>{type.descripcion}</option>
+              ))}
+            </Form.Select>
+          ) : (
+            <p className="text-danger">No hay tipos de autos</p>
+          )}
         </Form.Group>
 
         <Button variant="primary" type="submit">

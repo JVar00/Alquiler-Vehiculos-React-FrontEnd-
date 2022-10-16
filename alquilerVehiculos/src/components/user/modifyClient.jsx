@@ -6,7 +6,7 @@ const ManageUser = () => {
   const navigate = useNavigate();
 
   const { uID } = useParams();
-  const { updateData, client } = useContext(ClientContext);
+  const { updateData, client, getOne } = useContext(ClientContext);
 
   const [notFound, setNotFound] = useState(true);
   const [nice, setNice] = useState(false);
@@ -93,7 +93,7 @@ const ManageUser = () => {
         El usuario se actualizo con exito
       </p>
 
-      <p className={err ? "text-danger mt-3" : "d-none"}>
+      <p className={errDB ? "text-danger mt-3" : "d-none"}>
         La identificacion debe ser unica
       </p>
 
