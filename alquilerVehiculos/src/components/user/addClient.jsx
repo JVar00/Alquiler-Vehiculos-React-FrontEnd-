@@ -24,7 +24,7 @@ const AddClient = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ id, nombre });
+        await storeData({ identificacion: id, nombre: nombre });
         setNice(true);
       } catch {
         setErr(true);

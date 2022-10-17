@@ -38,7 +38,7 @@ const ManageUser = () => {
 
     if (validate()) {
       try {
-        await updateData({ uID, id, nombre });
+        await updateData({ id: uID, identificacion: id, nombre: nombre });
         setNice(true);
       } catch {
         setErrDB(true);

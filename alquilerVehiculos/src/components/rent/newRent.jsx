@@ -74,7 +74,7 @@ const NewRent = () => {
         if (validateCar()) {
           if (validateFecha()) {
             try {
-              await storeData({ id, placa, fecha });
+              await storeData({ persona: { id }, placa: { placa }, fecha });
               setNice(true);
             } catch {
               setErr(true);

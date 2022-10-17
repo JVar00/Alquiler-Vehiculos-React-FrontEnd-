@@ -36,7 +36,7 @@ const ManageCarType = () => {
 
     if (validate()) {
       try {
-        await updateData({ uID, descripcion });
+        await updateData({ id: uID, descripcion: descripcion });
         setNice(true);
       } catch {
         setErrDB(true);
