@@ -2,12 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { CarContext } from "../../providers/carProvider";
-import { ClientContext } from "../../providers/clientProvider";
 import { RentContext } from "../../providers/rentProvider";
 
 const NewRent = () => {
   const { cars } = useContext(CarContext);
-  const { getOne } = useContext(ClientContext);
   const { storeData } = useContext(RentContext);
 
   //inputs
@@ -74,7 +72,7 @@ const NewRent = () => {
         if (validateCar()) {
           if (validateFecha()) {
             try {
-              await storeData({ persona: { id }, placa: { placa }, fecha });
+              await storeData({ persona: { id }, auto: { placa }, fecha });
               setNice(true);
             } catch {
               setErr(true);
@@ -126,7 +124,7 @@ const NewRent = () => {
             </Button>
           </Form>
         </Container>
-        <Container className="col-sm-8 mt-3">
+        <Container className="col-sm-8">
           <Calendar minDate={new Date()} onChange={onChange} value={date} />
         </Container>
       </Container>
