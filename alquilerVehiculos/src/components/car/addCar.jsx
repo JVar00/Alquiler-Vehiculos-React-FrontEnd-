@@ -28,7 +28,7 @@ const AddCar = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ placa, nombre });
+        await storeData({ placa: placa, tipo: { tipo } });
         setNice(true);
       } catch {
         setErr(true);

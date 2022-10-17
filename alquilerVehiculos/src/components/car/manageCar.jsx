@@ -40,7 +40,7 @@ const ManageCar = () => {
 
     if (validate()) {
       try {
-        await updateData({ uID, placa, tipo });
+        await updateData({ id: uID, placa: placa, tipo: { tipo } });
         setNice(true);
       } catch {
         setErrDB(true);
@@ -112,11 +112,11 @@ const ManageCar = () => {
       </Form>
 
       <p className={nice ? "text-primary mt-3" : "d-none"}>
-        El usuario se actualizo con exito
+        El auto se actualizo con exito
       </p>
 
       <p className={errDB ? "text-danger mt-3" : "d-none"}>
-        La identificacion debe ser unica
+        La placa debe ser unica
       </p>
 
       <p className={input ? "text-danger mt-3" : "d-none"}>

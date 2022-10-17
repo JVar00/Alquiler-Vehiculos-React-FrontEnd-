@@ -25,7 +25,7 @@ const AddType = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ descripcion });
+        await storeData({ descripcion: descripcion });
         setNice(true);
       } catch {
         setErr(true);
