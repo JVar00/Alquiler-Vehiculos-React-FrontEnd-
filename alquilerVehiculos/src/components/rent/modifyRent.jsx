@@ -76,7 +76,7 @@ const ManageRent = () => {
       if (validateCar()) {
         if (validateFecha()) {
           try {
-            await updateData({ id: { uID }, auto: { placa }, fecha });
+            await updateData({ id: { uID }, vehiculo: { placa }, fecha });
             setNice(true);
           } catch {
             setErr(true);

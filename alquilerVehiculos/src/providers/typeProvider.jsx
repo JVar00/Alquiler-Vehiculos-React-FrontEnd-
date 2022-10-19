@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import TypeServiceData from "../services/carService";
+import TypeServiceData from "../services/typeService";
 
 export const TypeContext = createContext();
 
