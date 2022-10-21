@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import Calendar from "react-calendar";
@@ -47,7 +46,7 @@ const NewRent = () => {
         await storeData({
           persona: { id_Persona: id },
           vehiculo: { id_Vehiculo: idVehiculo },
-          //fecha
+          fecha: date,
         });
         setNice(true);
         getAll();

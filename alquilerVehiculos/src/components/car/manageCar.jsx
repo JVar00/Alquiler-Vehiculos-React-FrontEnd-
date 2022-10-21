@@ -31,7 +31,7 @@ const ManageCar = () => {
 
   const cargarDatos = () => {
     setPlaca(car.placa);
-    setTipo(car.type);
+    setTipo(car.tipo_Vehiculo.id_Tipo_Vehiculo);
   };
 
   const update = async (e) => {
@@ -46,7 +46,7 @@ const ManageCar = () => {
         await updateData({
           id_Vehiculo: id_Vehiculo,
           placa: placa,
-          tipo_vehiculo: { tipo },
+          tipo_Vehiculo: { id_Tipo_Vehiculo: tipo },
         });
         setNice(true);
       } catch {
@@ -63,6 +63,7 @@ const ManageCar = () => {
       await getOne(id_Vehiculo);
       setNotFound(false);
       getAll();
+      cargarDatos();
     } catch {
       setNotFound(true);
     }
@@ -106,7 +107,7 @@ const ManageCar = () => {
               aria-label="Tipo-Auto"
               id="Tipo-Auto"
             >
-              <option value={car.tipo_vehiculo?.id_Tipo_Vehiculo}>
+              <option value={car.tipo_Vehiculo?.id_Tipo_Vehiculo}>
                 Tipo de auto actual: {car.tipo_Vehiculo?.descripcion}
               </option>
               {/* mapeo de los datos */}

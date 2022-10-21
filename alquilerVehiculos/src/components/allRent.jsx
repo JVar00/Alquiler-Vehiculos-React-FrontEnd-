@@ -12,9 +12,9 @@ const AllRent = () => {
   const { deleteData, rents, getAll } = useContext(RentContext);
   const [error, setError] = useState(false);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     try {
-      deleteData(id);
+      await deleteData(id);
       setError(false);
     } catch {
       setError(true);
@@ -28,7 +28,7 @@ const AllRent = () => {
   return (
     <div className="row">
       <p className={error ? "text-danger" : "d-none"}>
-        Error al intentar eliminar la renta.
+        Error, no se puede eliminar, el elemento posee varias relaciones.
       </p>
 
       {rents[0] ? (
@@ -38,9 +38,7 @@ const AllRent = () => {
               {/* <Card.Header>Featured</Card.Header> */}
               <Card.Body>
                 <Card.Title>ID: {rent.id_Alquiler}</Card.Title>
-                <Card.Text>
-                  Lo alquilo: {rent.persona?.identificacion}
-                </Card.Text>
+                <Card.Text>Lo alquilo: {rent.persona?.nombre}</Card.Text>
                 <Card.Text>Vehiculo de placa: {rent.vehiculo?.placa}</Card.Text>
                 <Card.Text>Para el: {rent.fecha}</Card.Text>
                 <Button

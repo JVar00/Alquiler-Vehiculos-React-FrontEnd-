@@ -8,9 +8,9 @@ const AllTypes = () => {
   const { deleteData, types, getAll } = useContext(TypeContext);
   const [error, setError] = useState(false);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     try {
-      deleteData(id);
+      await deleteData(id, setError);
       setError(false);
     } catch {
       setError(true);
@@ -24,7 +24,7 @@ const AllTypes = () => {
   return (
     <div className="row">
       <p className={error ? "text-danger" : "d-none"}>
-        Error al intentar eliminar el tipo.
+        Error, no se puede eliminar, el elemento posee varias relaciones.
       </p>
 
       {types[0] ? (

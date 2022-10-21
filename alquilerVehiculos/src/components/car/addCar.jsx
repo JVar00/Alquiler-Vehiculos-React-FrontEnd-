@@ -4,7 +4,7 @@ import { CarContext } from "../../providers/carProvider";
 import { TypeContext } from "../../providers/typeProvider";
 
 const AddCar = () => {
-  const { storeData, getAll } = useContext(CarContext);
+  const { storeData, getAllCars } = useContext(CarContext);
   const { types } = useContext(TypeContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
@@ -33,7 +33,7 @@ const AddCar = () => {
           tipo_Vehiculo: { id_Tipo_Vehiculo: tipo },
         });
         setNice(true);
-        getAll();
+        getAllCars();
       } catch {
         setErr(true);
       }

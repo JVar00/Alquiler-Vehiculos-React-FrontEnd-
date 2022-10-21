@@ -11,9 +11,9 @@ const AllClients = () => {
   const { deleteData, clients, getAllPersonas } = useContext(ClientContext);
   const [error, setError] = useState(false);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     try {
-      deleteData(id);
+      await deleteData(id, setError);
       setError(false);
     } catch {
       setError(true);
@@ -27,7 +27,7 @@ const AllClients = () => {
   return (
     <div className="row">
       <p className={error ? "text-danger" : "d-none"}>
-        Error al intentar eliminar el usuario.
+        Error, no se puede eliminar, el elemento posee varias relaciones.
       </p>
 
       {clients[0] ? (

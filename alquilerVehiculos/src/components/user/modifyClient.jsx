@@ -47,6 +47,7 @@ const ManageUser = () => {
           nombre: nombre,
         });
         setNice(true);
+        setLoading(false);
       } catch {
         setErrDB(true);
       }
@@ -59,7 +60,6 @@ const ManageUser = () => {
   const search = async () => {
     try {
       await getOne(id_Persona);
-      console.log(id_Persona);
       setNotFound(false);
     } catch {
       setNotFound(true);
@@ -68,7 +68,6 @@ const ManageUser = () => {
 
   useEffect(() => {
     search();
-    setLoading(false);
   }, []);
 
   if (loading) return <div>Cargando...</div>;
@@ -100,7 +99,7 @@ const ManageUser = () => {
           <Form.Control
             type="text"
             value={nombre}
-            onChange={() => setNombre(e.target.value)}
+            onChange={(e) => setNombre(e.target.value)}
             placeholder="Ingrese Nombre completo"
           />
         </Form.Group>

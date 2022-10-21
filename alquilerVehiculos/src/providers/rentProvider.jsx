@@ -16,7 +16,6 @@ export const RentProvider = ({ children }) => {
   const getOne = async (id) => {
     const response = await RentServiceData.get(id);
     setRent(response.data);
-    console.log(rent);
     return response;
   };
 

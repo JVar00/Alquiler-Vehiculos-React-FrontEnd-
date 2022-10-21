@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { ClientContext } from "../../providers/clientProvider";
 
 const AddClient = () => {
-  const { storeData, getAll } = useContext(ClientContext);
+  const { storeData, getAllPersonas } = useContext(ClientContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
@@ -26,7 +26,7 @@ const AddClient = () => {
       try {
         await storeData({ identificacion, nombre });
         setNice(true);
-        getAll();
+        getAllPersonas();
       } catch {
         setErr(true);
       }

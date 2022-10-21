@@ -8,9 +8,9 @@ const AllCars = () => {
   const { deleteData, cars, getAllCars } = useContext(CarContext);
   const [error, setError] = useState(false);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     try {
-      deleteData(id);
+      await deleteData(id);
       setError(false);
     } catch {
       setError(true);
@@ -24,7 +24,7 @@ const AllCars = () => {
   return (
     <div className="row">
       <p className={error ? "text-danger" : "d-none"}>
-        Error al intentar eliminar el auto.
+        Error, no se puede eliminar, el elemento posee varias relaciones.
       </p>
 
       {cars[0] ? (
