@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { CarContext } from "../../providers/carProvider";
 import { TypeContext } from "../../providers/typeProvider";
@@ -6,14 +7,16 @@ import { TypeContext } from "../../providers/typeProvider";
 const ManageCar = () => {
   const navigate = useNavigate();
 
-  const { uID } = useParams();
+  const { id_Vehiculo } = useParams();
+
   const { updateData, car, getOne } = useContext(CarContext);
-  const { types } = useContext(TypeContext);
+  const { types, getAll } = useContext(TypeContext);
 
   const [notFound, setNotFound] = useState(true);
   const [nice, setNice] = useState(false);
   const [errDB, setErrDB] = useState(false);
   const [input, setInput] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //
   const [placa, setPlaca] = useState("");
@@ -40,7 +43,11 @@ const ManageCar = () => {
 
     if (validate()) {
       try {
-        await updateData({ id: uID, placa: placa, tipo_vehiculo: { tipo } });
+        await updateData({
+          id_Vehiculo: id_Vehiculo,
+          placa: placa,
+          tipo_vehiculo: { tipo },
+        });
         setNice(true);
       } catch {
         setErrDB(true);
@@ -53,16 +60,21 @@ const ManageCar = () => {
   //agregar use effect que lo busque
   const search = async () => {
     try {
-      await getOne(uID);
+      await getOne(id_Vehiculo);
       setNotFound(false);
+      getAll();
     } catch {
       setNotFound(true);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     search();
+    setLoading(false);
   }, []);
+
+  if (loading) return <div>Cargando...</div>;
 
   return notFound ? (
     <p className="mt-3 text-danger">No se encontro el auto</p>
@@ -70,13 +82,13 @@ const ManageCar = () => {
     <>
       <h5>Auto de placa {car.placa} </h5>
 
-      <Button variant="secundary" onClick={cargarDatos}>
+      <Button variant="primary" onClick={cargarDatos}>
         Cargar Datos
       </Button>
 
       <Form onSubmit={update}>
         <Form.Group className="mb-3" controlId="myForm">
-          <Form.Label>Placa</Form.Label>
+          <Form.Label>Nueva Placa</Form.Label>
           <Form.Control
             onChange={(e) => setPlaca(e.target.value)}
             value={placa}
@@ -86,7 +98,7 @@ const ManageCar = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="Tipo-Auto">
-          <Form.Label>Tipo de auto</Form.Label>
+          <Form.Label>Nuevo Tipo de auto</Form.Label>
           {types[0] ? (
             <Form.Select
               value={tipo}
@@ -94,11 +106,18 @@ const ManageCar = () => {
               aria-label="Tipo-Auto"
               id="Tipo-Auto"
             >
-              <option value="">Seleccione un tipo de auto</option>
+              <option value={car.tipo_vehiculo?.id_Tipo_Vehiculo}>
+                Tipo de auto actual: {car.tipo_Vehiculo?.descripcion}
+              </option>
               {/* mapeo de los datos */}
 
               {types.map((type) => (
-                <option value={type.descripcion}>{type.descripcion}</option>
+                <option
+                  key={type.id_Tipo_Vehiculo}
+                  value={type.id_Tipo_Vehiculo}
+                >
+                  {type.descripcion}
+                </option>
               ))}
             </Form.Select>
           ) : (

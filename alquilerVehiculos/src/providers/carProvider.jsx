@@ -7,20 +7,21 @@ export const CarProvider = ({ children }) => {
   const [cars, setCars] = useState([]);
   const [car, setCar] = useState(null);
 
-  const getAll = async () => {
+  const getAllCars = async () => {
     const response = await CarServiceData.getAll();
     setCars(response.data);
   };
 
   const getOne = async (id) => {
     const response = await CarServiceData.get(id);
+    console.log(response.data);
     setCar(response.data);
     return response;
   };
 
   const deleteData = async (id) => {
     const response = await CarServiceData.remove(id);
-    getAllPersonas();
+    getAllCars();
     return response;
   };
 
@@ -41,7 +42,7 @@ export const CarProvider = ({ children }) => {
         updateData,
         deleteData,
         getOne,
-        getAll,
+        getAllCars,
       }}
     >
       {children}

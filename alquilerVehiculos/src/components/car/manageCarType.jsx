@@ -1,17 +1,19 @@
 import { useContext, useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { TypeContext } from "../../providers/typeProvider";
 
 const ManageCarType = () => {
   const navigate = useNavigate();
 
-  const { uID } = useParams();
+  const { id_Tipo_Vehiculo } = useParams();
   const { updateData, type, getOne } = useContext(TypeContext);
 
   const [notFound, setNotFound] = useState(true);
   const [nice, setNice] = useState(false);
   const [errDB, setErrDB] = useState(false);
   const [input, setInput] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //
   const [descripcion, setDescripcion] = useState("");
@@ -36,7 +38,10 @@ const ManageCarType = () => {
 
     if (validate()) {
       try {
-        await updateData({ id: uID, descripcion: descripcion });
+        await updateData({
+          id_Tipo_Vehiculo: id_Tipo_Vehiculo,
+          descripcion: descripcion,
+        });
         setNice(true);
       } catch {
         setErrDB(true);
@@ -49,7 +54,7 @@ const ManageCarType = () => {
   //agregar use effect que lo busque
   const search = async () => {
     try {
-      await getOne(uID);
+      await getOne(id_Tipo_Vehiculo);
       setNotFound(false);
     } catch {
       setNotFound(true);
@@ -57,8 +62,12 @@ const ManageCarType = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     search();
+    setLoading(false);
   }, []);
+
+  if (loading) return <div>Cargando...</div>;
 
   return notFound ? (
     <p className="mt-3 text-danger">No se encontro el tipo</p>
@@ -66,7 +75,7 @@ const ManageCarType = () => {
     <>
       <h5>ID Tipo {type.id} </h5>
 
-      <Button variant="secundary" onClick={cargarDatos}>
+      <Button variant="primary" onClick={cargarDatos}>
         Cargar Datos Anteriores
       </Button>
 
@@ -74,7 +83,7 @@ const ManageCarType = () => {
         <Form.Group className="mb-3" controlId="myForm">
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
-            onChange={(e) => setDescripcion(e.target.descripcion)}
+            onChange={(e) => setDescripcion(e.target.value)}
             value={descripcion}
             type="text"
             placeholder="Ingrese una descripcion"

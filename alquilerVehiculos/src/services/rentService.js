@@ -1,23 +1,23 @@
 import http from "../../http-common";
 
 const getAll = () => {
-  return http.get("/.");
+  return http.get("/alquiler");
 };
 
 const get = (id) => {
-  return http.get(`/./${id}`);
+  return http.get(`/alquiler/${id}`);
 };
 
 const create = (data) => {
-  return http.post("/.", data);
+  return http.post("/alquiler", data);
 };
 
 const update = (data) => {
-  return http.put(`/.`, data);
+  return http.put(`/alquiler`, data);
 };
 
 const remove = (id) => {
-  return http.delete(`/./${id}`);
+  return http.delete(`/alquiler/${id}`);
 };
 
 const RentServiceData = {

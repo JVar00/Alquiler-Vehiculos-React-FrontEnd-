@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { TypeContext } from "../../providers/typeProvider";
 
 const AddType = () => {
-  const { storeData } = useContext(TypeContext);
+  const { storeData, getAll } = useContext(TypeContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
@@ -27,6 +27,7 @@ const AddType = () => {
       try {
         await storeData({ descripcion: descripcion });
         setNice(true);
+        getAll();
       } catch {
         setErr(true);
       }
@@ -41,8 +42,8 @@ const AddType = () => {
         <Form.Group className="mb-3" controlId="myForm">
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
-            onChange={(e) => setDescripcion(e.target.descripcion)}
             value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
             type="text"
             placeholder="Ingrese una descripcion"
           />

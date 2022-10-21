@@ -3,15 +3,15 @@ import { Button, Form } from "react-bootstrap";
 import { ClientContext } from "../../providers/clientProvider";
 
 const AddClient = () => {
-  const { storeData } = useContext(ClientContext);
+  const { storeData, getAll } = useContext(ClientContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
   const [input, setInput] = useState(false);
-  const [id, setID] = useState("");
+  const [identificacion, setID] = useState("");
   const [nombre, setNombre] = useState("");
 
   const validate = () => {
-    if (id === "" || nombre === "") {
+    if (identificacion === "" || nombre === "") {
       return false;
     }
     return true;
@@ -24,8 +24,9 @@ const AddClient = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ identificacion: id, nombre: nombre });
+        await storeData({ identificacion, nombre });
         setNice(true);
+        getAll();
       } catch {
         setErr(true);
       }
@@ -41,7 +42,7 @@ const AddClient = () => {
           <Form.Label>Identificacion</Form.Label>
           <Form.Control
             onChange={(e) => setID(e.target.value)}
-            value={id}
+            value={identificacion}
             type="text"
             placeholder="Ingrese su identificacion"
           />

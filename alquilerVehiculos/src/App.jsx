@@ -27,19 +27,22 @@ function App() {
                   <Route path="/" element={<NavBarMain />}>
                     <Route index element={<Main />} />
                     <Route path="alquiler" element={<Rent />} />
-                    <Route path="alquiler/:id" element={<ManageRent />} />
+                    <Route
+                      path="alquiler/:id_Alquiler"
+                      element={<ManageRent />}
+                    />
                     <Route path="catalogo" element={<Catalogue />}></Route>
                     <Route
-                      path="catalogo/gestionarAuto/:id"
+                      path="catalogo/gestionarAuto/:id_Vehiculo"
                       element={<ManageCar />}
                     />
                     <Route
-                      path="catalogo/gestionarTipo/:id"
+                      path="catalogo/gestionarTipo/:id_Tipo_Vehiculo"
                       element={<ManageCarType />}
                     />
                     {/* <Route path="catalogo/gestionarAuto/:id" element={<ManageCar />} /> */}
                     <Route path="perfil" element={<Portal />}></Route>
-                    <Route path="perfil/:id" element={<ManageUser />} />
+                    <Route path="perfil/:id_Persona" element={<ManageUser />} />
                     <Route path="*" element={<Navigate replace to="/" />} />
                   </Route>
                 </Routes>

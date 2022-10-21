@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
