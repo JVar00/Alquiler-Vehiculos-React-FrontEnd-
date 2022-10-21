@@ -4,7 +4,7 @@ import { CarContext } from "../../providers/carProvider";
 import { TypeContext } from "../../providers/typeProvider";
 
 const AddCar = () => {
-  const { storeData } = useContext(CarContext);
+  const { storeData, getAllCars } = useContext(CarContext);
   const { types } = useContext(TypeContext);
   const [nice, setNice] = useState(false);
   const [err, setErr] = useState(false);
@@ -28,8 +28,12 @@ const AddCar = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await storeData({ placa: placa, tipo: { tipo } });
+        await storeData({
+          placa: placa,
+          tipo_Vehiculo: { id_Tipo_Vehiculo: tipo },
+        });
         setNice(true);
+        getAllCars();
       } catch {
         setErr(true);
       }
@@ -64,7 +68,12 @@ const AddCar = () => {
               {/* mapeo de los datos */}
 
               {types.map((type) => (
-                <option value={type.descripcion}>{type.descripcion}</option>
+                <option
+                  key={type.id_Tipo_Vehiculo}
+                  value={type.id_Tipo_Vehiculo}
+                >
+                  {type.descripcion}
+                </option>
               ))}
             </Form.Select>
           ) : (

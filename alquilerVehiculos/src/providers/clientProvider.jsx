@@ -7,7 +7,7 @@ export const ClientProvider = ({ children }) => {
   const [clients, setClients] = useState([]);
   const [client, setClient] = useState(null);
 
-  const getAll = async () => {
+  const getAllPersonas = async () => {
     const response = await ClientServiceData.getAll();
     setClients(response.data);
   };
@@ -41,7 +41,7 @@ export const ClientProvider = ({ children }) => {
         updateData,
         deleteData,
         getOne,
-        getAll,
+        getAllPersonas,
       }}
     >
       {children}

@@ -21,7 +21,7 @@ export const RentProvider = ({ children }) => {
 
   const deleteData = async (id) => {
     const response = await RentServiceData.remove(id);
-    getAllPersonas();
+    getAll();
     return response;
   };
 
