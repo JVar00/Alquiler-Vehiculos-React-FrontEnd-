@@ -20,6 +20,7 @@ const NavBarMain = () => {
               <NavButton redirectTo="/alquiler" inputName="Alquila Hoy!" />
               <NavButton redirectTo="/catalogo" inputName="Catalogo" />
               <NavButton redirectTo="/perfil" inputName="Usuarios" />
+              <NavButton redirectTo="/logs" inputName="Logs" />
             </Nav>
           </Navbar.Collapse>
         </Container>

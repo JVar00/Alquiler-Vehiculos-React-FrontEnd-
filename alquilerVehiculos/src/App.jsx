@@ -5,6 +5,7 @@ import "./App.css";
 import ManageCar from "./components/car/manageCar";
 import ManageCarType from "./components/car/manageCarType";
 import Catalogue from "./components/mainUI/catalogue";
+import Logs from "./components/mainUI/logs";
 import Main from "./components/mainUI/main";
 import Portal from "./components/mainUI/portal";
 import Rent from "./components/mainUI/rentUI";
@@ -15,6 +16,7 @@ import { CarProvider } from "./providers/carProvider";
 import { ClientProvider } from "./providers/clientProvider";
 import { RentProvider } from "./providers/rentProvider";
 import { TypeProvider } from "./providers/typeProvider";
+
 function App() {
   return (
     <ClientProvider>
@@ -43,6 +45,7 @@ function App() {
                     {/* <Route path="catalogo/gestionarAuto/:id" element={<ManageCar />} /> */}
                     <Route path="perfil" element={<Portal />}></Route>
                     <Route path="perfil/:id_Persona" element={<ManageUser />} />
+                    <Route path="logs" element={<Logs />} />
                     <Route path="*" element={<Navigate replace to="/" />} />
                   </Route>
                 </Routes>

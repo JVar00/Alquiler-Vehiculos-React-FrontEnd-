@@ -63,7 +63,7 @@ const ManageCar = () => {
       await getOne(id_Vehiculo);
       setNotFound(false);
       getAll();
-      cargarDatos();
+      //cargarDatos();
     } catch {
       setNotFound(true);
     }
